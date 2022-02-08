@@ -18,8 +18,6 @@ phases:
       - echo "Updating lambda Function..."
       - aws lambda update-function-code --function-name testLambda --zip-file fileb://deployment_package.zip
       - echo "DONE!!"
-  test:
-    commands:
       - echo "running tests"
       - cd tests
       - pytest    
