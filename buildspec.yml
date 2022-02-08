@@ -9,16 +9,16 @@ phases:
       - . test_venv/bin/activate
       - pip install --upgrade pip
       - echo "Installing dependencies..."
-      - pip install -r requirements.txt -t lib
+      - pip install -r requirements.txt
   pre_build:
     commands:
       - mkdir test-reports    
   build:
     commands:
       - echo "Zipping deployment package..."
-      - cd lib
-      - zip -r9 ../deployment_package.zip .
-      - cd ..
+      - cd test_venv/bin/python
+      - zip -r9 ../../../deployment_package.zip .
+      - cd ../../..
       - zip -g deployment_package.zip lambda_function.py
   post_build:
     commands:
