@@ -6,9 +6,8 @@ phases:
     commands:
       - apt-get update && apt-get install -y python3-venv
       - python -m venv test_venv
-      - . test_venv/bin/activate
+      - source test_venv/bin/activate
       - pip install --upgrade pip
-      - pip install .
       - echo "Installing dependencies..."
       - pip install -r requirements.txt -t lib
   pre_build:
