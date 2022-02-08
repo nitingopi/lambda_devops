@@ -17,7 +17,7 @@ phases:
     commands:
       - echo "Zipping deployment package..."
       - ls -la
-      - cd test_venv/bin/python
+      - cd test_venv && cd bin && cd python
       - zip -r9 ../../../deployment_package.zip .
       - cd ../../..
       - zip -g deployment_package.zip lambda_function.py
