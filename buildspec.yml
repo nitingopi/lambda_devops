@@ -16,6 +16,7 @@ phases:
   build:
     commands:
       - echo "Zipping deployment package..."
+      - ls -la
       - cd test_venv/bin/python
       - zip -r9 ../../../deployment_package.zip .
       - cd ../../..
