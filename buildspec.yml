@@ -23,6 +23,7 @@ phases:
       - echo "DONE!!"
       - echo "running tests"
       - export PYTHONPATH=.
+      - which python
       - python -m pytest --html=test-reports/report.html --self-contained-html -s -v --cov=tests --cov-report=html:test-reports/coverage --junitxml=test-reports/junit.xml --log-file=test-reports/logs.txt tests
       - echo Build completed on `date`  
 reports:
