@@ -22,17 +22,7 @@ phases:
       - aws lambda update-function-code --function-name testLambda --zip-file fileb://deployment_package.zip
       - echo "DONE!!"
       - echo "running tests"
-      - cd tests
-      - pytest 
-        --html=test-reports/report.html 
-        --self-contained-html
-        -s
-        -v
-        --cov=dspt 
-        --cov-report=html:test-reports/coverage 
-        --junitxml=test-reports/junit.xml 
-        --log-file=test-reports/logs.txt 
-        tests
+      - pytest --html=test-reports/report.html --self-contained-html -s -v --cov=tests --cov-report=html:test-reports/coverage --junitxml=test-reports/junit.xml --log-file=test-reports/logs.txt tests
       - echo Build completed on `date`  
 reports:
   coverage:
