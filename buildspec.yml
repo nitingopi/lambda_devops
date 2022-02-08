@@ -6,7 +6,7 @@ phases:
     commands:
       - echo "Installing dependencies..."
       - pip install -r requirements.txt -t lib
-  pre-build:
+  pre_build:
     commands:
       - mkdir test-reports    
   build:
