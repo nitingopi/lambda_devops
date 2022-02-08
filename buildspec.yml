@@ -4,6 +4,11 @@ phases:
     runtime-versions:
       python: 3.8
     commands:
+      - apt-get install -y python3-venv
+      - python -m venv test_venv
+      - . test_venv/bin/activate
+      - pip install --upgrade pip
+      - pip install .
       - echo "Installing dependencies..."
       - pip install -r requirements.txt -t lib
   pre_build:
