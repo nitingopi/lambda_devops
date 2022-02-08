@@ -20,5 +20,11 @@ phases:
       - echo "DONE!!"
       - echo "running tests"
       - cd tests
-      - python -m pytest    
+      - python -m pytest --junitxml=reports/test_report   
       - echo "Ran all tests!!"
+reports:
+  pytest_reports:
+    files:
+      - test_report
+    base-directory: reports
+    file-format: JUNITXML     
