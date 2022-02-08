@@ -20,5 +20,5 @@ phases:
       - echo "DONE!!"
       - echo "running tests"
       - cd tests
-      - pytest    
+      - python -m pytest    
       - echo "Ran all tests!!"
