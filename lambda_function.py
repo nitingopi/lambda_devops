@@ -1,4 +1,5 @@
 # import pandas as pd
+import requests, json
 
 def lambda_handler(event, context):
     URL1 = "https://mediahub.invidi.it/api/impressions/v1/timeseries/campaigns"
