@@ -6,20 +6,27 @@ def lambda_handler(event, context):
     endDate = None
     reportName = None
 
-    print('FROM_DATE = ' + str(event['FROM_DATE']))
-    startDate = str(event['FROM_DATE'])
+    if 'FROM_DATE' in event:
+        print('FROM_DATE = ' + str(event['FROM_DATE']))
+        startDate = str(event['FROM_DATE'])
 
-    print('TO_DATE = ' + str(event['TO_DATE']))
-    endDate = str(event['TO_DATE'])
+    if 'TO_DATE' in event:
+        print('TO_DATE = ' + str(event['TO_DATE']))
+        endDate = str(event['TO_DATE'])
 
-    print('REPORT_NAME = ' + str(event['REPORT_NAME']))
-    reportName = str(event['REPORT_NAME'])
+    if 'REPORT_NAME' in event:
+        print('REPORT_NAME = ' + str(event['REPORT_NAME']))
+        reportName = str(event['REPORT_NAME'])
 
-    print('DIMENSION = ' + str(event['DIMENSION'])) # no information how to use
-    print('METRICS = ' + str(event['METRICS'])) # no information how to use
+    if 'DIMENSION' in event:
+        print('DIMENSION = ' + str(event['DIMENSION'])) # no information how to use
 
-    print('TOKEN = ' + str(event['TOKEN']))
-    auth_token = str(event['TOKEN'])
+    if 'METRICS' in event:    
+        print('METRICS = ' + str(event['METRICS'])) # no information how to use
+
+    if 'TOKEN' in event:
+        print('TOKEN = ' + str(event['TOKEN']))
+        auth_token = str(event['TOKEN'])
 
     URL1 = "https://mediahub.invidi.it/api/impressions/v1/timeseries/campaigns"
     URL2 = "https://mediahub.invidi.it/api/campaign-management/v1/campaigns"
