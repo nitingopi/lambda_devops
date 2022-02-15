@@ -1,6 +1,7 @@
 # import pandas as pd
 import requests
 import json
+import csv
 
 
 def lambda_handler(event, context):
@@ -79,6 +80,7 @@ def lambda_handler(event, context):
                     data_set = merge_func(
                         item, campaign, raw_impressions, validated_impressions, day)
                 final_response.append(data_set)
+    generate_csv("test.csv", final_response)            
 
     return {
         "statusCode": 200,
@@ -111,3 +113,18 @@ def merge_func(item, campaign,  raw_impressions, validated_impressions, day=None
             data_set.pop("date")
 
     return data_set
+
+
+def generate_csv(file, data):
+    # print(type(data))
+    data_file = open(file, 'w')
+    csv_writer = csv.writer(data_file)
+    count = 0
+    for  item in data:
+        print(item)
+        if count == 0:
+            header = item.keys()
+            csv_writer.writerow(header)
+            count += 1
+        csv_writer.writerow(item.values())
+    data_file.close()     
