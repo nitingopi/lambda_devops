@@ -6,7 +6,7 @@ import boto3
 
 s3_client = boto3.client('s3')
 
-BUCKET_NAME = 'conexus-reporting'
+BUCKET_NAME = 'conexus-reporting/'
 PREFIX = 'Conexus_Reports/'
 CSV_FILE = '/tmp/test.csv'
 
@@ -149,6 +149,7 @@ def log_csv_data(csv_file):
     with open(csv_file) as file:
         csvreader = csv.reader(file)
         header = next(csvreader)
-        print(header)
+
+        print(f"Printing header values : {header}")
         rows = list(csvreader)
-        print(rows)    
+        print(f"Printing rows : {rows}")    
