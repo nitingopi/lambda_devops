@@ -8,6 +8,9 @@ def lambda_handler(event, context):
     endDate = None
     reportName = None
 
+    input_json = event['body']
+    print(f" Type of input_json {type(input_json)}")
+
     if 'FROM_DATE' in event:
         print('FROM_DATE = ' + str(event['FROM_DATE']))
         startDate = str(event['FROM_DATE'])
