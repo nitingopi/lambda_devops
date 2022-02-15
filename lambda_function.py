@@ -9,9 +9,10 @@ s3_client = boto3.client('s3')
 
 BUCKET_NAME = 'conexus-reporting'
 PREFIX = 'Conexus_Reports/'
-CSV_FILE = '/tmp/'
+
 
 def lambda_handler(event, context):
+    CSV_FILE = '/tmp/'
     startDate = None
     endDate = None
     reportName = None
