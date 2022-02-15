@@ -17,7 +17,7 @@ def lambda_handler(event, context):
     reportName = None
 
     input_json = json.loads(event['body'])
-    print(f" Type of input_json {type(input_json)}")
+    # print(f" Type of input_json {type(input_json)}")
 
     if 'FROM_DATE' in input_json:
         print('FROM_DATE = ' + str(input_json['FROM_DATE']))
@@ -133,7 +133,7 @@ def generate_csv(file, data):
     csv_writer = csv.writer(data_file)
     count = 0
     for  item in data:
-        print(item)
+        # print(item)
         if count == 0:
             header = item.keys()
             csv_writer.writerow(header)
@@ -157,6 +157,6 @@ def log_csv_data(csv_file):
         csvreader = csv.reader(file)
         header = next(csvreader)
 
-        print(f"Printing header values : {header}")
+        # print(f"Printing header values : {header}")
         rows = list(csvreader)
-        print(f"Printing rows : {rows}")    
+        # print(f"Printing rows : {rows}")    
