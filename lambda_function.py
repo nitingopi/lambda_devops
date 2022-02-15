@@ -98,7 +98,7 @@ def lambda_handler(event, context):
                 final_response.append(data_set)
     generate_csv(CSV_FILE, final_response)  # write to csv file
     print(final_response)
-    # log_csv_data(CSV_FILE)
+    log_csv_data(CSV_FILE)
 
 
     upload_file_to_s3(  CSV_FILE, BUCKET_NAME, PREFIX, reportName)  
@@ -164,8 +164,8 @@ def upload_file_to_s3(file , bucket_name, folder_name, report_name):
 def log_csv_data(csv_file):
     with open(csv_file) as file:
         csvreader = csv.reader(file)
-        header = next(csvreader)
+        # header = next(csvreader)
 
         # print(f"Printing header values : {header}")
         rows = list(csvreader)
-        # print(f"Printing rows : {rows}")    
+        print(f"Printing rows : {rows}")    
