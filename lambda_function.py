@@ -19,9 +19,10 @@ def lambda_handler(event, context):
 
     print(f"Printing event : {event}")
 
-    input_json = json.loads(event['body'])
+    # input_json = json.loads(event['body'])
     # print(f" Type of input_json {type(input_json)}")
 
+    input_json = event 
     if 'FROM_DATE' in input_json:
         print('FROM_DATE = ' + str(input_json['FROM_DATE']))
         startDate = str(input_json['FROM_DATE'])
