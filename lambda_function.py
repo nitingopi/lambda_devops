@@ -60,22 +60,22 @@ def lambda_handler(event, context):
                                headers=auth_token_header)
             data2 = res.json()
             campaigns = data2['campaigns']
-            if startDate is not None and endDate is not None:
-                raw_impressions = item['metrics']['rawImpressions']
-                validated_impressions = item['metrics']['validatedImpressions']
+            # if startDate is not None and endDate is not None:
+            #     raw_impressions = item['metrics']['rawImpressions']
+            #     validated_impressions = item['metrics']['validatedImpressions']
+            #     for campaign in campaigns:
+            #         data_set = merge_func(
+            #             item, campaign, raw_impressions, validated_impressions)
+            #     final_response.append(data_set)
+            # else:
+            metrics = item["metrics"]
+            for day, impressions in metrics.items():
+                raw_impressions = impressions['rawImpressions']
+                validated_impressions = impressions['validatedImpressions']
                 for campaign in campaigns:
                     data_set = merge_func(
-                        item, campaign, raw_impressions, validated_impressions)
+                        item, campaign, raw_impressions, validated_impressions, day)
                 final_response.append(data_set)
-            else:
-                metrics = item["metrics"]
-                for day, impressions in metrics.items():
-                    raw_impressions = impressions['rawImpressions']
-                    validated_impressions = impressions['validatedImpressions']
-                    for campaign in campaigns:
-                        data_set = merge_func(
-                            item, campaign, raw_impressions, validated_impressions, day)
-                    final_response.append(data_set)
 
     return {
         "statusCode": 200,
