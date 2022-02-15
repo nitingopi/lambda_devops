@@ -66,6 +66,8 @@ def lambda_handler(event, context):
     # extracting data in json format
     data1 = r1.json()
 
+    print(f"Printing data1 : {data1}")
+
     # return final_data
     final_response = []
 
@@ -76,6 +78,7 @@ def lambda_handler(event, context):
             res = requests.get(URL2, params=pay_load,
                                headers=auth_token_header)
             data2 = res.json()
+            print(f"Printing data2 : {data2}")
             campaigns = data2['campaigns']
             # if startDate is not None and endDate is not None:
             #     raw_impressions = item['metrics']['rawImpressions']
