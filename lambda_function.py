@@ -7,8 +7,8 @@ from botocore.exceptions import ClientError
 
 s3_client = boto3.client('s3')
 
-BUCKET_NAME = 's3://conexus-reporting/Conexus_Reports/'
-
+BUCKET_NAME = 'conexus-reporting'
+PREFIX = 'Conexus_Reports/'
 CSV_FILE = '/tmp/test.csv'
 
 def lambda_handler(event, context):
@@ -92,7 +92,7 @@ def lambda_handler(event, context):
     log_csv_data(CSV_FILE)
 
 
-    upload_file_to_s3(  CSV_FILE, BUCKET_NAME, "test")  
+    upload_file_to_s3(  CSV_FILE, BUCKET_NAME, PREFIX, reportName)  
 
     return {
         "statusCode": 200,
@@ -141,10 +141,10 @@ def generate_csv(file, data):
         csv_writer.writerow(item.values())
     data_file.close()     
 
-def upload_file_to_s3(file , s3_bucket_name, s3_key):
+def upload_file_to_s3(file , bucket_name, folder_name, report_name):
     try:
         s3_client = boto3.client('s3')
-        s3_client.upload_file(  file, s3_bucket_name, s3_key)
+        s3_client.upload_file(  file, bucket_name, folder_name/report_name)
     except ClientError as e:
         if e.response['Error']['Code'] == "404":
             print("The object does not exist.")
