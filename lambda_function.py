@@ -2,7 +2,13 @@
 import requests
 import json
 import csv
+import boto3
 
+s3_client = boto3.client('s3')
+
+BUCKET_NAME = 'conexus-reporting'
+PREFIX = 'Conexus_Reports/'
+CSV_FILE = '/tmp/test.csv'
 
 def lambda_handler(event, context):
     startDate = None
@@ -80,7 +86,12 @@ def lambda_handler(event, context):
                     data_set = merge_func(
                         item, campaign, raw_impressions, validated_impressions, day)
                 final_response.append(data_set)
-    generate_csv("/tmp/test.csv", final_response)  # write to csv file          
+    generate_csv(CSV_FILE, final_response)  # write to csv file
+
+    log_csv_data(CSV_FILE)
+
+
+    # upload_file_to_s3(CSV_FILE, BUCKET_NAME+PREFIX, "test")  
 
     return {
         "statusCode": 200,
@@ -128,3 +139,16 @@ def generate_csv(file, data):
             count += 1
         csv_writer.writerow(item.values())
     data_file.close()     
+
+def upload_file_to_s3(file,s3_bucket_name,s3_key):
+    s3_client = boto3.client('s3')
+    s3_client.upload_file( s3_bucket_name, file, s3_key)
+    return True
+
+def log_csv_data(csv_file):
+    with open(csv_file) as file:
+        csvreader = csv.reader(file)
+        header = next(csvreader)
+        print(header)
+        rows = list(csvreader)
+        print(rows)    
