@@ -17,6 +17,8 @@ def lambda_handler(event, context):
     endDate = None
     reportName = None
 
+    print(f"Printing event : {event}")
+
     input_json = json.loads(event['body'])
     # print(f" Type of input_json {type(input_json)}")
 
