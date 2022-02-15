@@ -144,7 +144,7 @@ def generate_csv(file, data):
 def upload_file_to_s3(file , s3_bucket_name, s3_key):
     try:
         s3_client = boto3.client('s3')
-        s3_client.upload_file(  FILE=file, BUCKET=s3_bucket_name, KEY=s3_key)
+        s3_client.upload_file(  file, s3_bucket_name, s3_key)
     except ClientError as e:
         if e.response['Error']['Code'] == "404":
             print("The object does not exist.")
