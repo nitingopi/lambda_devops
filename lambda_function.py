@@ -48,8 +48,8 @@ def lambda_handler(event, context):
 
     URL1 = "https://mediahub.invidi.it/api/impressions/v1/timeseries/campaigns"
     URL2 = "https://mediahub.invidi.it/api/campaign-management/v1/campaigns"
-    auth_token_header_value = f'Bearer {auth_token}'
-    auth_token_header = {"Authorization": auth_token_header_value}
+    # auth_token_header_value = f'Bearer {auth_token}'
+    auth_token_header = {"Authorization": auth_token}
 
     if startDate is not None and endDate is not None:
         print('startDate and endDate are not None')
