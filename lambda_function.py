@@ -80,7 +80,7 @@ def lambda_handler(event, context):
                     data_set = merge_func(
                         item, campaign, raw_impressions, validated_impressions, day)
                 final_response.append(data_set)
-    generate_csv("test.csv", final_response)            
+    generate_csv("/tmp/test.csv", final_response)  # write to csv file          
 
     return {
         "statusCode": 200,
