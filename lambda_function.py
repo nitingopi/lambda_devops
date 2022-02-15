@@ -7,8 +7,8 @@ from botocore.exceptions import ClientError
 
 s3_client = boto3.client('s3')
 
-BUCKET_NAME = 'conexus-reporting/'
-PREFIX = 'Conexus_Reports/'
+BUCKET_NAME = 's3://conexus-reporting/Conexus_Reports/'
+
 CSV_FILE = '/tmp/test.csv'
 
 def lambda_handler(event, context):
@@ -92,7 +92,7 @@ def lambda_handler(event, context):
     log_csv_data(CSV_FILE)
 
 
-    upload_file_to_s3(  CSV_FILE, BUCKET_NAME+PREFIX, "test")  
+    upload_file_to_s3(  CSV_FILE, BUCKET_NAME, "test")  
 
     return {
         "statusCode": 200,
