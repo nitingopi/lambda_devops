@@ -8,32 +8,32 @@ def lambda_handler(event, context):
     endDate = None
     reportName = None
 
-    input_json = event['body']
+    input_json = json.loads(event['body'])
     print(f" Type of input_json {type(input_json)}")
 
-    if 'FROM_DATE' in event:
-        print('FROM_DATE = ' + str(event['FROM_DATE']))
-        startDate = str(event['FROM_DATE'])
+    if 'FROM_DATE' in input_json:
+        print('FROM_DATE = ' + str(input_json['FROM_DATE']))
+        startDate = str(input_json['FROM_DATE'])
 
-    if 'TO_DATE' in event:
-        print('TO_DATE = ' + str(event['TO_DATE']))
-        endDate = str(event['TO_DATE'])
+    if 'TO_DATE' in input_json:
+        print('TO_DATE = ' + str(input_json['TO_DATE']))
+        endDate = str(input_json['TO_DATE'])
 
-    if 'REPORT_NAME' in event:
-        print('REPORT_NAME = ' + str(event['REPORT_NAME']))
-        reportName = str(event['REPORT_NAME'])
+    if 'REPORT_NAME' in input_json:
+        print('REPORT_NAME = ' + str(input_json['REPORT_NAME']))
+        reportName = str(input_json['REPORT_NAME'])
 
-    if 'DIMENSION' in event:
+    if 'DIMENSION' in input_json:
         # no information how to use
-        print('DIMENSION = ' + str(event['DIMENSION']))
+        print('DIMENSION = ' + str(input_json['DIMENSION']))
 
-    if 'METRICS' in event:
+    if 'METRICS' in input_json:
         # no information how to use
-        print('METRICS = ' + str(event['METRICS']))
+        print('METRICS = ' + str(input_json['METRICS']))
 
-    if 'TOKEN' in event:
-        print('TOKEN = ' + str(event['TOKEN']))
-        auth_token = str(event['TOKEN'])
+    if 'TOKEN' in input_json:
+        print('TOKEN = ' + str(input_json['TOKEN']))
+        auth_token = str(input_json['TOKEN'])
 
     URL1 = "https://mediahub.invidi.it/api/impressions/v1/timeseries/campaigns"
     URL2 = "https://mediahub.invidi.it/api/campaign-management/v1/campaigns"
