@@ -94,8 +94,8 @@ def lambda_handler(event, context):
                         item, campaign, raw_impressions, validated_impressions, day)
                 final_response.append(data_set)
     generate_csv(CSV_FILE, final_response)  # write to csv file
-
-    log_csv_data(CSV_FILE)
+    print(final_response)
+    # log_csv_data(CSV_FILE)
 
 
     upload_file_to_s3(  CSV_FILE, BUCKET_NAME, PREFIX, reportName)  
