@@ -39,9 +39,9 @@ def lambda_handler(event, context):
 
     if startDate is not None and endDate is not None:
         print('startDate and endDate are not None')
-        URL1_params = "https://mediahub.invidi.it/api/impressions/v1/totals/campaigns"
+        # URL1_params = "https://mediahub.invidi.it/api/impressions/v1/timeseries/campaigns"
 
-        URL1 = f'{URL1_params}?startDate={startDate}&endDate={endDate}'
+        URL1 = f'{URL1}?startDate={startDate}&endDate={endDate}'
 
     # call API1 and get the list of campaign_id
     r1 = requests.get(url=URL1, headers=auth_token_header)
