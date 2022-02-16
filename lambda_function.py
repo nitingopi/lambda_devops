@@ -35,7 +35,7 @@ def lambda_handler(event, context):
         print('REPORT_NAME = ' + str(input_json['REPORT_NAME']))
         report_name = str(input_json['REPORT_NAME'])
         CSV_FILE = CSV_FILE + report_name + '.csv'
-        report_name = report_name+'.csv'
+        report_name = PREFIX+report_name+'.csv'
         print(f"CSV_FILE = {CSV_FILE}")
 
     if 'DIMENSION' in input_json:
@@ -102,7 +102,7 @@ def lambda_handler(event, context):
     # log_csv_data(CSV_FILE)
 
 
-    upload_file_to_s3(  CSV_FILE, BUCKET_NAME, PREFIX, report_name)  
+    upload_file_to_s3(  CSV_FILE, BUCKET_NAME,  report_name)  
 
     return {
         "statusCode": 200,
@@ -151,11 +151,10 @@ def generate_csv(file, data):
         csv_writer.writerow(item.values())
     data_file.close()     
 
-def upload_file_to_s3(file , bucket_name, folder_name, report_name):
+def upload_file_to_s3(file , bucket_name,  report_name):
     try:
         s3_client = boto3.client('s3')
-        # s3_client.upload_file(file, bucket_name, 'Conexus_Reports/{}'.format(reportName))
-        s3_client.upload_file(file, bucket_name, f"{folder_name}/{report_name}")
+        s3_client.upload_file(file, bucket_name, report_name)
     except ClientError as e:
         if e.response['Error']['Code'] == "404":
             print("The object does not exist.")
