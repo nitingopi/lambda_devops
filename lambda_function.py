@@ -1,4 +1,5 @@
 # import pandas as pd
+
 import requests
 import json
 import csv
@@ -19,6 +20,7 @@ def lambda_handler(event, context):
     startDate = None
     endDate = None
     report_name = None
+    campaign_list = []
 
     print(f"Printing event : {event}")
 
@@ -56,6 +58,11 @@ def lambda_handler(event, context):
         print('TOKEN = ' + str(input_json['TOKEN']))
         auth_token = str(input_json['TOKEN'])
 
+    if 'CAMPAIGN' in input_json:
+        print('CAMPAIGN = ' + str(input_json['CAMPAIGN']))
+        print(f"Type of CAMPAIGN {type(input_json['CAMPAIGN'])}")
+        campaign_list = input_json['CAMPAIGN']
+
     URL1 = "https://mediahub.invidi.it/api/impressions/v1/timeseries/campaigns"
     URL2 = "https://mediahub.invidi.it/api/campaign-management/v1/campaigns"
     # auth_token_header_value = f'Bearer {auth_token}'
@@ -63,9 +70,12 @@ def lambda_handler(event, context):
 
     if startDate is not None and endDate is not None:
         print('startDate and endDate are not None')
-        # URL1_params = "https://mediahub.invidi.it/api/impressions/v1/timeseries/campaigns"
-
         URL1 = f'{URL1}?startDate={startDate}&endDate={endDate}'
+
+    if len(campaign_list) != 0:
+        print('campaign_list is not Empty')
+        for i in range(len(campaign_list)):
+            URL1 = f'{URL1}&id={campaign_list[i]}' 
 
     # call API1 and get the list of campaign_id
     r1 = requests.get(url=URL1, headers=auth_token_header)
