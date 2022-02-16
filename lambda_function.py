@@ -4,6 +4,9 @@ import json
 import csv
 import boto3
 from botocore.exceptions import ClientError
+import datetime
+
+
 
 s3_client = boto3.client('s3')
 
@@ -22,7 +25,7 @@ def lambda_handler(event, context):
     # input_json = json.loads(event['body'])
     # print(f" Type of input_json {type(input_json)}")
 
-    input_json = event 
+    input_json = event
     if 'FROM_DATE' in input_json:
         print('FROM_DATE = ' + str(input_json['FROM_DATE']))
         startDate = str(input_json['FROM_DATE'])
@@ -35,7 +38,10 @@ def lambda_handler(event, context):
         print('REPORT_NAME = ' + str(input_json['REPORT_NAME']))
         report_name = str(input_json['REPORT_NAME'])
         CSV_FILE = CSV_FILE + report_name + '.csv'
-        report_name = PREFIX+report_name+'.csv'
+        report_name = PREFIX+report_name
+        currentDT = datetime.datetime.now()
+        report_name = f'{report_name}_' + currentDT.strftime("%Y%m%d%H%M%S")
+        report_name += '.csv'
         print(f"CSV_FILE = {CSV_FILE}")
 
     if 'DIMENSION' in input_json:
