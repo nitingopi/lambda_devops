@@ -46,9 +46,9 @@ def lambda_handler(event, context):
         report_name += '.csv'
         print(f"CSV_FILE = {CSV_FILE}")
 
-    if 'DIMENSION' in input_json:
+    if 'DIMENSIONS' in input_json:
         # no information how to use
-        print('DIMENSION = ' + str(input_json['DIMENSION']))
+        print(f'DIMENSIONS = {input_json["DIMENSION"]}')
 
     if 'METRICS' in input_json:
         # no information how to use
@@ -132,20 +132,20 @@ def lambda_handler(event, context):
 def merge_func(item, campaign,  raw_impressions, validated_impressions, day=None):
     if campaign['id'] == item['id']:
         data_set = {
-            "ID": item["id"],
-            "name": campaign["name"],
-            "contentProvider": campaign["contentProvider"],
-            "status": campaign["status"],
-            "type": campaign["type"],
-            "startTime": campaign["startTime"],
-            "endTime": campaign["endTime"],
-            "priority": campaign["priority"],
+            "Campaign ID": item["id"],
+            "Campaign Name": campaign["name"],
+            # "contentProvider": campaign["contentProvider"],
+            # "status": campaign["status"],
+            # "type": campaign["type"],
+            # "startTime": campaign["startTime"],
+            # "endTime": campaign["endTime"],
+            # "priority": campaign["priority"],
             # "notes": campaign["notes"],
-            "advertiser": campaign["advertiser"],
+            # "advertiser": campaign["advertiser"],
             # "addExec": campaign["addExec"],
-            "date": day,
-            "raw_impressions": raw_impressions,
-            "validated_impressions": validated_impressions,
+            "Date": day,
+            "Raw Impressions": raw_impressions,
+            # "validated_impressions": validated_impressions,
         }
         if day is None:
             data_set.pop("date")
