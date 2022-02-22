@@ -48,7 +48,7 @@ def lambda_handler(event, context):
 
     if 'DIMENSIONS' in input_json:
         # no information how to use
-        print(f'DIMENSIONS = {input_json["DIMENSION"]}')
+        print(f'DIMENSIONS = {input_json["DIMENSIONS"]}')
 
     if 'METRICS' in input_json:
         # no information how to use
