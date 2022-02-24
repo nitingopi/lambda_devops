@@ -95,7 +95,7 @@ def lambda_handler(event, context):
                 "headers": {
                     "Content-Type": "application/json"
                 },
-                "body": item["error"]["messsage"]
+                "body": item["error"]["message"]
             }
         elif "metrics" in item:
             if item["id"] and item["id"] != None:
