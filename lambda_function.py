@@ -89,30 +89,31 @@ def lambda_handler(event, context):
     final_response = []
 
     for item in data1:
-        if item["id"] and item["id"] != None:
-            pay_load = {"id": item["id"]}
-            # call API2 corresponding to the campaign_id
-            res = requests.get(URL2, params=pay_load,
-                               headers=auth_token_header)
-            data2 = res.json()
-            print(f"Printing data2 : {data2}")
-            campaigns = data2['campaigns']
-            # if startDate is not None and endDate is not None:
-            #     raw_impressions = item['metrics']['rawImpressions']
-            #     validated_impressions = item['metrics']['validatedImpressions']
-            #     for campaign in campaigns:
-            #         data_set = merge_func(
-            #             item, campaign, raw_impressions, validated_impressions)
-            #     final_response.append(data_set)
-            # else:
-            metrics = item["metrics"]
-            for day, impressions in metrics.items():
-                raw_impressions = impressions['rawImpressions']
-                validated_impressions = impressions['validatedImpressions']
-                for campaign in campaigns:
-                    data_set = merge_func(
-                        item, campaign, raw_impressions, validated_impressions, day)
-                final_response.append(data_set)
+        if "error" in item:
+            return {
+                "statusCode": 400,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": item["error"]["messsage"]
+            }
+        elif "metrics" in item:
+            if item["id"] and item["id"] != None:
+                pay_load = {"id": item["id"]}
+                # call API2 corresponding to the campaign_id
+                res = requests.get(URL2, params=pay_load,
+                                headers=auth_token_header)
+                data2 = res.json()
+                print(f"Printing data2 : {data2}")
+                campaigns = data2['campaigns']
+                metrics = item["metrics"]
+                for day, impressions in metrics.items():
+                    raw_impressions = impressions['rawImpressions']
+                    validated_impressions = impressions['validatedImpressions']
+                    for campaign in campaigns:
+                        data_set = merge_func(
+                            item, campaign, raw_impressions, validated_impressions, day)
+                    final_response.append(data_set)
     generate_csv(CSV_FILE, final_response)  # write to csv file
     # print(final_response)
     # log_csv_data(CSV_FILE)
